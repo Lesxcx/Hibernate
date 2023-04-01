@@ -1,5 +1,6 @@
 package com.konrad_szydlowski.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,10 @@ public class Instructor extends AuditModel {
     private String email;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.DETACH)
+    @JsonIgnore
     private List<Course> courses;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_detail_id")
+    private InstructorDetail detail;
 }
